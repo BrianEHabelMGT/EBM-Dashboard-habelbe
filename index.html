@@ -445,9 +445,9 @@
         }
 
         .tab-panel.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
+            display: block !important;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
         .content-section {
@@ -1641,25 +1641,42 @@ Evidence Collection Strategy:
 
     <script>
         function showTab(tabIndex) {
-            document.querySelectorAll('.tab-panel').forEach(p => {
-                p.classList.remove('active');
-                p.style.display = 'none';
+            console.log('Switching to tab', tabIndex);
+            
+            // Hide all panels
+            const panels = document.querySelectorAll('.tab-panel');
+            panels.forEach(panel => {
+                panel.style.display = 'none';
+                panel.classList.remove('active');
             });
             
-            const panel = document.getElementById('tab-' + tabIndex);
-            if (panel) {
-                panel.classList.add('active');
-                panel.style.display = 'block';
+            // Remove active from all nav items
+            const navItems = document.querySelectorAll('.tab-nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected panel
+            const selectedPanel = document.getElementById('tab-' + tabIndex);
+            if (selectedPanel) {
+                selectedPanel.style.display = 'block';
+                selectedPanel.classList.add('active');
+                console.log('Panel found and shown:', selectedPanel);
+            } else {
+                console.error('Panel not found for tab', tabIndex);
             }
             
-            document.querySelectorAll('.tab-nav-item').forEach((item, i) => {
-                if (i + 1 === tabIndex) item.classList.add('active');
-                else item.classList.remove('active');
-            });
+            // Highlight selected nav item
+            if (navItems[tabIndex - 1]) {
+                navItems[tabIndex - 1].classList.add('active');
+            }
         }
         
         // Set Tab 2 as default on load
-        document.addEventListener('DOMContentLoaded', () => showTab(2));
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, showing tab 2');
+            showTab(2);
+        });
     </script>
 </body>
 </html>
