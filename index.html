@@ -1641,18 +1641,14 @@ Evidence Collection Strategy:
 
     <script>
         function showTab(tabIndex) {
-            console.log('Switching to tab', tabIndex);
-            
             // Hide all panels
-            const panels = document.querySelectorAll('.tab-panel');
-            panels.forEach(panel => {
+            document.querySelectorAll('.tab-panel').forEach(panel => {
                 panel.style.display = 'none';
                 panel.classList.remove('active');
             });
             
             // Remove active from all nav items
-            const navItems = document.querySelectorAll('.tab-nav-item');
-            navItems.forEach(item => {
+            document.querySelectorAll('.tab-nav-item').forEach(item => {
                 item.classList.remove('active');
             });
             
@@ -1661,20 +1657,17 @@ Evidence Collection Strategy:
             if (selectedPanel) {
                 selectedPanel.style.display = 'block';
                 selectedPanel.classList.add('active');
-                console.log('Panel found and shown:', selectedPanel);
-            } else {
-                console.error('Panel not found for tab', tabIndex);
             }
             
-            // Highlight selected nav item
+            // Activate nav item
+            const navItems = document.querySelectorAll('.tab-nav-item');
             if (navItems[tabIndex - 1]) {
                 navItems[tabIndex - 1].classList.add('active');
             }
         }
         
-        // Set Tab 2 as default on load
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Page loaded, showing tab 2');
+        // Load tab 2 immediately
+        window.addEventListener('load', function() {
             showTab(2);
         });
     </script>
